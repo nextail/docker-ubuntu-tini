@@ -9,7 +9,7 @@ You can build the image like this:
 ```
 #!/usr/bin/env bash
 
-DOCKER_REPOSITORY_NAME="rubensa"
+DOCKER_REPOSITORY_NAME="nextail"
 DOCKER_IMAGE_NAME="ubuntu-tini"
 DOCKER_IMAGE_TAG="24.04"
 
@@ -30,7 +30,7 @@ You can run the container like this (change --rm with -d if you don't want the c
 ```
 #!/usr/bin/env bash
 
-DOCKER_REPOSITORY_NAME="rubensa"
+DOCKER_REPOSITORY_NAME="nextail"
 DOCKER_IMAGE_NAME="ubuntu-tini"
 DOCKER_IMAGE_TAG="24.04"
 
