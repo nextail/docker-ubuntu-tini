@@ -46,6 +46,13 @@ jobs:
       # https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos.
+      # https://github.com/gitleaks/gitleaks-action/tree/v1.6.0
+      - name: Gitleaks
+        uses: zricethezav/gitleaks-action@v1.6.0
 
       # Allow Buildx multi-platform builds
       # https://github.com/docker/setup-qemu-action
