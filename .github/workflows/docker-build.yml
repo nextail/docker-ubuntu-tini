@@ -49,11 +49,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Scans the whole git history (checkout above uses fetch-depth: 0).
       - name: Check for secrets (betterleaks)
-        run: >-
-          docker run --rm -u "$(id -u):$(id -g)" -v "${{ github.workspace }}:/repo" -w /repo
-          ghcr.io/betterleaks/betterleaks:v1.9.0@sha256:e3b95b0db6c2735db17165c009b0ad6d9cef34fb4578659232b98f69d7346cac
-          dir . --redact --verbose --no-banner
+        run: |
+          CONFIG=""
+          for f in gitleaks.toml .gitleaks.toml .github/gitleaks.toml .github/.gitleaks.toml; do
+            if [ -f "$f" ]; then CONFIG="--config $f"; break; fi
+          done
+          docker run --rm -u "$(id -u):$(id -g)" -v "${{ github.workspace }}:/repo" -w /repo \
+            ghcr.io/betterleaks/betterleaks:v1.9.0@sha256:e3b95b0db6c2735db17165c009b0ad6d9cef34fb4578659232b98f69d7346cac \
+            git --redact --verbose --no-banner $CONFIG .
 
       # Allow Buildx multi-platform builds
       # https://github.com/docker/setup-qemu-action
